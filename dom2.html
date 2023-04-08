@@ -3,12 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
-    <script>
-      window.onload = function () {
-        const $Text = document.querySelector(".disp>form>p");
-        $Text.innerText = "페이지가 로딩 될 때 글씨 변경 완료!";
-      };
-    </script>
     <style>
       .content {
         width: 1024px;
@@ -37,11 +31,19 @@
       #list {
         border: 1px solid #ededed;
       }
+
       .hidden {
         display: none;
       }
     </style>
   </head>
+  <script>
+    window.onload = function () {
+      document.querySelector(
+        "#display"
+      ).innerText = `안녕하세요 헬로헬로헬로 !_!`;
+    };
+  </script>
   <body>
     <div class="content">
       <div class="disp" id="display">
@@ -70,38 +72,32 @@
         <div class="block">탭4 컨텐츠</div>
       </div>
     </div>
-    <script>
-      const $tabcontent = document.querySelectorAll(".tab");
-      const $block = document.querySelectorAll(".block");
-
-      for (let i = 0; i < $block.length; i++) {
-        $block[i].innerHTML = `탭${i + 1} 컨텐츠`;
-      }
-
-      for (let i = 0; i < $tabcontent.length; i++) {
-        $tabcontent[i].addEventListener("click", function () {
-          if ($tabcontent[i].style.backgroundColor === "") {
-            $tabcontent.forEach((index) => {
-              index.style.backgroundColor = "";
-              index.style.color = "";
-            });
-            $tabcontent[i].style.backgroundColor = "red";
-            $tabcontent[i].style.color = "white";
-            $block.forEach((index) => {
-              index.classList.add("hidden");
-            });
-
-            $block[i].classList.remove("hidden");
-          } else {
-            $tabcontent[i].style.backgroundColor = "";
-            $tabcontent[i].style.color = "";
-            $block.forEach((index) => {
-              index.classList.remove("hidden");
-            });
-          }
-          console.log(i);
-        });
-      }
-    </script>
+    <script src="./index.js"></script>
   </body>
+
+  <script>
+    const tab = document.querySelectorAll(".tab");
+    const block = document.querySelectorAll(".block");
+    //1.탭1을 눌렀을때 배경 컬러와 글자 컬러가 바뀌고
+    //2.탭1컨텐츠만 남고 나머지는 없어진다.
+    //3. 나머지 탭을 눌러도 반복
+    for (let i = 0; i < tab.length; i++) {
+      tab[i].addEventListener("click", function () {
+        let tabBody = `<div>탭${i + 1} 컨텐츠</div>`;
+
+        tab.forEach(function (itab) {
+          itab.style.backgroundColor = "white";
+          itab.style.color = "black";
+        });
+        tab[i].style.backgroundColor = "black";
+        tab[i].style.color = "pink";
+        block.forEach(function (iblock) {
+          iblock.classList.add("hidden");
+        });
+        block[0].classList.remove("hidden");
+        block[0].innerHTML = tabBody;
+        console.log(i);
+      });
+    }
+  </script>
 </html>
